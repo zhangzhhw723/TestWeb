@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
+项目设置模块
 """
 
 from pathlib import Path
@@ -75,8 +76,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': BASE_DIR / 'db.sqlite3',
+        "USER": "rootvirtualenv venv --no-site-packages",
+        "PASSWORD": "201623025504",
+        "HOST": "127.0.0.1"
     }
 }
 
