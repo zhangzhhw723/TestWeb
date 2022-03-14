@@ -10,8 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 项目设置模块
 """
-
+import os
+import sys
 from pathlib import Path
+
+
+# 把返回数据的projects模块放入modules
+BASE_DIR = "../projects"
+sys.path.insert(0, os.path.join(BASE_DIR, 'modules'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +32,11 @@ SECRET_KEY = 'django-insecure-f6nl9%=)nkzrlg*2x&t4iwpr+du0euk$qov#rhc@!&0qi=xr-9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]  # 允许其他来源访问
 
 
 # Application definition
+# INSTALLED_APPS:包括了项目里启动的所有Django应用
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 新加的app
+    "home",
+    "projects",
+    "account"
 ]
 
 MIDDLEWARE = [
@@ -74,13 +85,18 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# 数据库配置MySQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        "USER": "rootvirtualenv venv --no-site-packages",
+        'NAME': "sandbox",
+        "USER": "root",
         "PASSWORD": "201623025504",
-        "HOST": "127.0.0.1"
+        "HOST": "127.0.0.1",
+        "PORT": 3306,
+        "OPTIONS": {
+            'autocommit': True,
+        }
     }
 }
 
@@ -109,13 +125,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# 时区更改为上海
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# 改为False
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

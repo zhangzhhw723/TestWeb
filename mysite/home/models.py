@@ -7,7 +7,3 @@ from django.db import models
 class Account(models.Model):
     # 账户模型
     pass
-
-
-class Bugs(models.Model):
-    pass
