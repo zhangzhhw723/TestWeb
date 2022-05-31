@@ -13,19 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import include, path
+from django.conf.urls import url, include
 from rest_framework import routers
-from projects.views import ProjectViewSet
-
-# enable imports from dir above
+from account import views
 
 router = routers.DefaultRouter()
-router.register(r'projects', ProjectViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 
+# 使用自动URL路由连接我们的API。
+# 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('home/', include('home.urls')),
-    path('admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
